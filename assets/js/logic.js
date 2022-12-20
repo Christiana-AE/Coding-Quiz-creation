@@ -57,20 +57,14 @@ function startTimer() {
 
 // Start quiz once start button is clicked
 function startQuiz() {
-
     start.classList.add('hide');
     questions_section.classList.remove('hide');
     displayQuestion();
 
 };
 
-function displayQuestion(){
+function displayQuestion() {
     var que_tag = '<span>' + questions[questionIndex].quest + '</span>';
-    //   var option_tag = '<div class="option"><span>' + option1 + '</span></div>'
-    //   //  + '<div class="option"><span>' + option2 + '</span></div>'
-    //    // + '<div class="option"><span>' + option3 + '</span></div>'
-    //     + '<div class="option"><span>' + option4 + '</span></div>'
-
 
     // Multiple choice options for the questions
     option1.textContent = questions[questionIndex].ans[0];
@@ -78,36 +72,36 @@ function displayQuestion(){
     option3.textContent = questions[questionIndex].ans[2];
     option4.textContent = questions[questionIndex].ans[3];
 
-
     question.innerHTML = que_tag;
-    //    answer.innerHTML = option_tag;
-   // checkAnswer(); //
 }
 
 // Check if submitted answer is correct or not 
 
 function checkAnswer() {
     for (var i = 0; i < maxOptions; i++) {
-       listEl.children[i].addEventListener("click", function (e) {
-        console.log(e.target);
-        var submitted = e.target.textContent;
-            if (submitted === questions[questionIndex].isCorrect) {
+        listEl.children[i].addEventListener("click", function (e) {
+            var submitted = e.target.textContent;
+            if (submitted === questions[questionIndex - 1].isCorrect) {
                 feedback.textContent = "Correct!"
             }
             else {
                 feedback.textContent = "Wrong!";
-                timerCount - 10;
+                timerCount = timerCount - 10;
             }
-            maxQuestions - 1;
         })
     }
+    if (questionIndex < maxQuestions) {
+        displayQuestion();
+    }
+    questionIndex = questionIndex + 1;
+
 }
 
 
 // When you enter initials and submit, it should save value 
 function saveScore() {
     if (timerCount === 0 || maxQuestions === 0) {
-        result = timerCount
+        result = timerCount;
     }
 }
 
@@ -123,5 +117,5 @@ startButton.addEventListener("click", startTimer);
 startButton.addEventListener("click", startQuiz);
 answer.addEventListener("click", checkAnswer);
 submit.addEventListener("click", saveScore);
-//clearScores.addEventListener("click", clearHighScores);
+clearScores.addEventListener("click", clearHighScores);
 
