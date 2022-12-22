@@ -10,11 +10,13 @@ var submit = document.querySelector("#submit")
 var clearScores = document.querySelector("#clear")
 var questions_section = document.querySelector("#questions");
 var start = document.querySelector(".start");
+var endScreen = document.querySelector("#end-screen");
 var timer;
 var timerCount;
-var maxQuestions = 10;
-var maxOptions = 4;
-var questionIndex = 0; // to keep track of what question we ae showing 
+var maxQuestions = 10; // total number of questions
+var maxOptions = 4; // total number of available options per questions 
+var questionIndex = 0; // to keep track of what question we are showing 
+var keepCountingTime = true; // to check if all questions are answered before timer ends
 
 
 // Create ordered list for answer options
@@ -46,11 +48,16 @@ function startTimer() {
     timerCount = 60;
     timer = setInterval(function () {
         timerElement.textContent = timerCount;
-        timerCount--;
+        if (keepCountingTime === true) {
+            timerCount--;
+        }
+
         startButton.disabled = true;
 
-        if (timerCount === -1) {
+        if (timerCount < 0) {
             clearInterval(timer);
+            saveScore();
+
         }
     }, 1000);
 }
@@ -86,23 +93,36 @@ function checkAnswer() {
             }
             else {
                 feedback.textContent = "Wrong!";
-                timerCount = timerCount - 10;
+
             }
         })
     }
+
     if (questionIndex < maxQuestions) {
         displayQuestion();
     }
     questionIndex = questionIndex + 1;
 
+    if (feedback.textContent === "Wrong!") {
+        timerCount = timerCount - 10;
+    }
+    if (questionIndex === maxQuestions) {
+        saveScore();
+    }
 }
 
 
-// When you enter initials and submit, it should save value 
+// Display result and save score
 function saveScore() {
-    if (timerCount === 0 || maxQuestions === 0) {
-        result = timerCount;
+    if (timerCount < 0) {
+        result.textContent = 0
+    } else {
+        result.textContent = timerCount;
     }
+    questions_section.classList.add('hide')
+    endScreen.classList.remove('hide');
+    timerElement.classList.add('hide');
+    keepCountingTime = false;
 }
 
 // Clearing high scores
