@@ -6,7 +6,7 @@ var startButton = document.querySelector("#start");
 var result = document.querySelector("#final-score");
 var timerElement = document.querySelector("#time");
 var feedback = document.querySelector(".feedback");
-var submit = document.querySelector("#submit")
+var submitInitials = document.querySelector("#submit")
 var clearScores = document.querySelector("#clear")
 var questions_section = document.querySelector("#questions");
 var start = document.querySelector(".start");
@@ -26,20 +26,29 @@ var option2 = document.createElement("li");
 var option3 = document.createElement("li");
 var option4 = document.createElement("li");
 
+
 answer.appendChild(listEl);
 
 // Create buttons for options
-option1.setAttribute("type", "button");
-option2.setAttribute("type", "button");
-option3.setAttribute("type", "button");
-option4.setAttribute("type", "button");
-listEl.setAttribute("class", ".selected");
+var responseButton1 = document.createElement("button");
+var responseButton2 = document.createElement("button");
+var responseButton3 = document.createElement("button");
+var responseButton4 = document.createElement("button");
 
-listEl.appendChild(option1);
-listEl.appendChild(option2);
-listEl.appendChild(option3);
-listEl.appendChild(option4);
 
+// Append the different options to their respective buttons 
+
+responseButton1.appendChild(option1);
+responseButton2.appendChild(option2);
+responseButton3.appendChild(option3);
+responseButton4.appendChild(option4);
+
+
+// Append the reponse buttons to the parent ordered list element
+listEl.appendChild(responseButton1);
+listEl.appendChild(responseButton2);
+listEl.appendChild(responseButton3);
+listEl.appendChild(responseButton4);
 
 
 
@@ -56,7 +65,9 @@ function startTimer() {
 
         if (timerCount < 0) {
             clearInterval(timer);
-            saveScore();
+            
+            // display score if player runs out of time
+            displayScore();
 
         }
     }, 1000);
@@ -70,6 +81,7 @@ function startQuiz() {
 
 };
 
+// Function to display the quiz questions
 function displayQuestion() {
     var que_tag = '<span>' + questions[questionIndex].quest + '</span>';
 
@@ -98,6 +110,7 @@ function checkAnswer() {
         })
     }
 
+    // to move quiz to the next question
     if (questionIndex < maxQuestions) {
         displayQuestion();
     }
@@ -107,13 +120,14 @@ function checkAnswer() {
         timerCount = timerCount - 10;
     }
     if (questionIndex === maxQuestions) {
-        saveScore();
+        // display score if user finishes the quiz before timer runs out
+        displayScore();
     }
 }
 
 
-// Display result and save score
-function saveScore() {
+// Display quiz result when timer expires or if user completes quiz
+function displayScore() {
     if (timerCount < 0) {
         result.textContent = 0
     } else {
@@ -121,8 +135,14 @@ function saveScore() {
     }
     questions_section.classList.add('hide')
     endScreen.classList.remove('hide');
-    timerElement.classList.add('hide');
-    keepCountingTime = false;
+    keepCountingTime = false; // so that timer can stop
+
+}
+
+// Saving user initials 
+function saveScore(){
+    location.href = "./highscores.html"
+    
 }
 
 // Clearing high scores
@@ -136,6 +156,6 @@ function clearHighScores() {
 startButton.addEventListener("click", startTimer);
 startButton.addEventListener("click", startQuiz);
 answer.addEventListener("click", checkAnswer);
-submit.addEventListener("click", saveScore);
+submitInitials.addEventListener("click", saveScore);
 clearScores.addEventListener("click", clearHighScores);
 
