@@ -7,7 +7,6 @@ var result = document.querySelector("#final-score");
 var timerElement = document.querySelector("#time");
 var feedback = document.querySelector(".feedback");
 var submitInitials = document.querySelector("#submit")
-var clearScores = document.querySelector("#clear")
 var questions_section = document.querySelector("#questions");
 var start = document.querySelector(".start");
 var endScreen = document.querySelector("#end-screen");
@@ -145,10 +144,6 @@ function saveScore(){
     
 }
 
-// Clearing high scores
-function clearHighScores() {
-    clearScores.textContent = 0;
-}
 
 
 // Adding event listener to start button to call startQuiz function 
@@ -157,5 +152,4 @@ startButton.addEventListener("click", startTimer);
 startButton.addEventListener("click", startQuiz);
 answer.addEventListener("click", checkAnswer);
 submitInitials.addEventListener("click", saveScore);
-clearScores.addEventListener("click", clearHighScores);
 
