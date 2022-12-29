@@ -10,6 +10,7 @@ var submitInitials = document.querySelector("#submit")
 var questions_section = document.querySelector("#questions");
 var start = document.querySelector(".start");
 var endScreen = document.querySelector("#end-screen");
+var clearScores = document.querySelector("#clear");
 var timer;
 var timerCount;
 var maxQuestions = 10; // total number of questions
@@ -64,7 +65,7 @@ function startTimer() {
 
         if (timerCount < 0) {
             clearInterval(timer);
-            
+
             // display score if player runs out of time
             displayScore();
 
@@ -132,16 +133,30 @@ function displayScore() {
     } else {
         result.textContent = timerCount;
     }
-    questions_section.classList.add('hide')
+    questions_section.classList.add('hide');
     endScreen.classList.remove('hide');
     keepCountingTime = false; // so that timer can stop
 
 }
 
 // Saving user initials 
-function saveScore(){
-    location.href = "./highscores.html"
-    
+function saveScore() {
+    location.href = "./highscores.html";
+
+    // To store initials and score
+submitInitials.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    var initials = document.querySelector("#initials").value;
+    var userHighScore = document.querySelector("#final-score").value;
+
+    localStorage.setItem("initials", initials);
+    localStorage.setItem("userHighScore", userHighScore);
+
+
+})
+
+
 }
 
 
@@ -152,4 +167,5 @@ startButton.addEventListener("click", startTimer);
 startButton.addEventListener("click", startQuiz);
 answer.addEventListener("click", checkAnswer);
 submitInitials.addEventListener("click", saveScore);
+
 
