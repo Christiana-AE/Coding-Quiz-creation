@@ -105,7 +105,6 @@ function checkAnswer() {
             }
             else {
                 feedback.textContent = "Wrong!";
-
             }
         })
     }
@@ -140,26 +139,17 @@ function displayScore() {
 }
 
 // Saving user initials 
-function saveScore() {
-    location.href = "./highscores.html";
-
+function saveScore(event) {
     // To store initials and score
-submitInitials.addEventListener("click", function (event) {
     event.preventDefault();
 
-    var initials = document.querySelector("#initials").value;
-    var userHighScore = document.querySelector("#final-score").value;
-
-    localStorage.setItem("initials", initials);
-    localStorage.setItem("userHighScore", userHighScore);
-
-
-})
-
-
+    var initials = document.querySelector("#initials");
+    localStorage.setItem("initials", initials.value);
+    localStorage.setItem("result", result.textContent);
+    
+    // After setting score, move to high score page
+    location.href = "./highscores.html";
 }
-
-
 
 // Adding event listener to start button to call startQuiz function 
 
