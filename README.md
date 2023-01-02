@@ -15,5 +15,7 @@ The MIT license has been used
 ## Deployment Link 
 
 ## Screenshot Link
+https://github.com/Christiana-AE/Coding-Quiz-creation/blob/main/assets/Coding%20Quiz%20screenshot.JPG
+
 
 
