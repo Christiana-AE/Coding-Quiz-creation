@@ -13,6 +13,7 @@ The application will run on the browser and will feature dynamically updated HTM
 The MIT license has been used
 
 ## Deployment Link 
+https://christiana-ae.github.io/Coding-Quiz-creation/
 
 ## Screenshot Link
 https://github.com/Christiana-AE/Coding-Quiz-creation/blob/main/assets/Coding%20Quiz%20screenshot.JPG
